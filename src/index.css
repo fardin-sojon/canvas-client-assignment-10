@@ -1,19 +1,24 @@
 
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+ 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
+
+
+
 ul li a.active{
   @apply text-white font-semibold border-b-2 border-white
 }
 
 .gradient-color{
   @apply bg-gradient-to-r from-[#6a11cb] to-[#2575fc]
-}
-
-@import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
- }
- @plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: blue;
-  --color-secondary: teal;
 }
