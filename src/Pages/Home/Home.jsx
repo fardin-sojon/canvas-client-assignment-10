@@ -18,7 +18,7 @@ const Home = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-7">
         {
-            cardData.map(art=> <ArtworkCard art={art}></ArtworkCard>)
+            cardData.map(art=> <ArtworkCard key={art._id} art={art}></ArtworkCard>)
         }
       </div>
     </div>

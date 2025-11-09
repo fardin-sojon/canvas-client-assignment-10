@@ -10,6 +10,7 @@ import Profile from "../Pages/Profile";
 import MyGallery from "../Pages/MyGallery";
 import MyFavorites from "../Pages/MyFavorites";
 import ArtworkDetails from "../Pages/ArtworkDetails";
+import PrivetRoute from "../Provider/PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -18,35 +19,52 @@ const router = createBrowserRouter([
     errorElement: <Error404 />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Home />,
-        loader: ()=>fetch('http://localhost:3000/recent-artwork')
+        loader: () => fetch("http://localhost:3000/recent-artwork"),
       },
       {
         path: "/explore-artwork",
-        loader:()=>fetch('http://localhost:3000/artwork'),
+        loader: () => fetch("http://localhost:3000/artwork"),
         element: <ExploreArtworks />,
       },
       {
         path: "/artworkDetails/:id",
-         loader: ({ params }) => fetch(`http://localhost:3000/artwork/${params.id}`),
-        element: <ArtworkDetails />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/artwork/${params.id}`),
+        element: (
+          <PrivetRoute>
+            <ArtworkDetails />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/add-artwork",
-        element: <AddArtwork />,
+        element: (
+          <PrivetRoute>
+            <AddArtwork />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/my-gallery",
-        element: <MyGallery/>
+        element: (
+          <PrivetRoute>
+            <MyGallery />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/my-favorites",
-        element: <MyFavorites />,
+        element: (
+          <PrivetRoute>
+            <MyFavorites />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile/>
+        element: <Profile />,
       },
       {
         path: "/login",

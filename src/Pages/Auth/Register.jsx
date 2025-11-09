@@ -4,12 +4,15 @@ import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../Provider/AuthContext";
 import { auth } from "../../Firebase/firebase.init";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 
 const Register = () => {
 
     const {signInWithGoogle, setLoading, user} = use(AuthContext)
     console.log(user);
+
+    const navigate = useNavigate()
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -33,6 +36,7 @@ const Register = () => {
     signInWithGoogle(auth)
     .then(result=>{
         console.log(result.user);
+         navigate(location?.state ? location.state : "/");
         toast.success("Login Successfully")
     })
     .catch(error=>{
