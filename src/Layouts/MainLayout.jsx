@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navber></Navber>
-      <div className="flex-1">
+      <div className="flex-1 bg-purple-400">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
@@ -17,3 +17,4 @@ const MainLayout = () => {
 export default MainLayout;
 
 // bg-[linear-gradient(135deg,#7A3FFF_0%,#C63BFA_100%)]
+// text-[linear-gradient(135deg,#7A3FFF_0%,#C63BFA_100%)]

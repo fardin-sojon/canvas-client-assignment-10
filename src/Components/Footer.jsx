@@ -1,21 +1,23 @@
 import React from "react";
+
 import {
   FaFacebookF,
-  FaTwitter,
+  FaXTwitter,
   FaInstagram,
   FaLinkedinIn,
-} from "react-icons/fa";
+} from "react-icons/fa6";
 import { NavLink } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 text-white py-10">
+    <footer className="gradient-color text-white py-10">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
         {/* Website Info */}
         <div>
           <h1 className="text-2xl font-bold mb-2">Canvas</h1>
           <p className="text-sm">
-            Showcase your artworks and explore <br /> creative works from others.
+            Showcase your artworks and explore <br /> creative works from
+            others.
           </p>
         </div>
 
@@ -26,13 +28,12 @@ const Footer = () => {
           <h2 className="font-semibold hover:underline">Privacy Policy</h2>
           <h2 className="font-semibold hover:underline">Support</h2>
         </div>
-        <div>
-            <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/explore-artwork">Explore Artworks</NavLink>
-      </li>
+        <div className="flex flex-col gap-2 font-semibold">
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/explore-artwork">Explore Artworks</NavLink>
+          <NavLink to="/add-artwork">Add Artwork</NavLink>
+          <NavLink to="/my-gallery">My Gallery</NavLink>
+          <NavLink to="/my-favorites">My Favorites</NavLink>
         </div>
 
         {/* Social Links */}
@@ -43,7 +44,7 @@ const Footer = () => {
               <FaFacebookF size={20} />
             </a>
             <a href="#" className="hover:text-yellow-300">
-              <FaTwitter size={20} />
+              <FaXTwitter size={20} />
             </a>
             <a href="#" className="hover:text-yellow-300">
               <FaInstagram size={20} />
