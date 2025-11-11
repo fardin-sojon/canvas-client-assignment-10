@@ -11,6 +11,7 @@ import MyGallery from "../Pages/MyGallery";
 import MyFavorites from "../Pages/MyFavorites";
 import ArtworkDetails from "../Pages/ArtworkDetails";
 import PrivetRoute from "../Provider/PrivetRoute";
+import UpdateArtwork from "../Pages/UpdateArtwork";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
             <MyFavorites />
           </PrivetRoute>
         ),
+      },
+      {
+        path: '/updateArtwork/:id',
+        loader: ({params})=>fetch(`http://localhost:3000/artwork/${params.id}`),
+        element: <UpdateArtwork/>
       },
       {
         path: "/profile",

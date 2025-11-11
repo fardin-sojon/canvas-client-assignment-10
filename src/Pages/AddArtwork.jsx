@@ -1,29 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
 
 import { AuthContext } from "../Provider/AuthContext";
 
 const AddArtwork = () => {
-  const { user } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
+  const { user, loading, setLoading } = useContext(AuthContext);
 
   const handleAddArtwork = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const title = e.target.title.value;
-    const image =e.target.image.value;
+    const image = e.target.image.value;
     const category = e.target.category.value;
-    const artistTotalArtworks = e.target.totalArtwork.value
-    const medium = e.target.medium.value;
+    const artistTotalArtworks = e.target.totalArtwork.value;
+    const Tools = e.target.Tools.value;
     const description = e.target.description.value;
+
+    const visibility = e.target.visibility?.value || "Public";
+    const dimensions = e.target.dimensions?.value || "";
+    const price = e.target.price?.value || "";
 
     const newArtwork = {
       title,
       image,
       category,
       artistTotalArtworks,
-      medium,
+      Tools,
       description,
+      dimensions,
+      price,
+      visibility,
       artistName: user?.displayName,
       artistPhoto: user?.photoURL,
       artistEmail: user?.email,
@@ -32,26 +39,34 @@ const AddArtwork = () => {
 
     fetch("http://localhost:3000/artwork", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(newArtwork),
     })
       .then((res) => res.json())
       .then((data) => {
-        e.target.reset()
+        setLoading(false);
         if (data.insertedId) {
+          e.target.reset();
           Swal.fire({
-            title: "ArtWork Added!",
+            title: "Artwork Added!",
             icon: "success",
             draggable: true,
           });
         }
+      })
+      .catch((err) => {
+        setLoading(false);
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong. Try again.",
+          icon: "error",
+        });
+        console.error(err);
       });
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-purple-100 p-8 rounded-2xl shadow-lg mt-10">
+    <div className="max-w-3xl mx-auto bg-purple-100 p-8 rounded-2xl shadow-lg my-10">
       <h2 className="text-3xl text-center font-bold text-gray-800 mb-6">
         Add New Artwork
       </h2>
@@ -64,7 +79,7 @@ const AddArtwork = () => {
             type="text"
             name="title"
             required
-            className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
+            className="w-full mt-2 p-3 rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
             placeholder="Enter artwork title"
           />
         </div>
@@ -76,7 +91,7 @@ const AddArtwork = () => {
             type="text"
             name="image"
             required
-            className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
+            className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black bg-white"
             placeholder="Enter image URL"
           />
         </div>
@@ -104,26 +119,26 @@ const AddArtwork = () => {
             </select>
           </div>
 
-            {/* Total Artworks */}
+          {/* Total Artworks */}
           <div>
             <label className="text-gray-700 font-medium">Total Artworks</label>
             <input
               type="number"
               name="totalArtwork"
               required
-              className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
+              className="w-full mt-2 p-3 rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
               placeholder="Total Artworks"
             />
           </div>
 
-          {/* Medium */}
+          {/* Tools */}
           <div>
-            <label className="text-gray-700 font-medium">Medium</label>
+            <label className="text-gray-700 font-medium">Tools</label>
             <input
               type="text"
-              name="medium"
+              name="Tools"
               required
-              className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
+              className="w-full mt-2 p-3 rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
               placeholder="Medium"
             />
           </div>
@@ -135,7 +150,7 @@ const AddArtwork = () => {
           <textarea
             name="description"
             required
-            className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
+            className="w-full mt-2 p-3 rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
             placeholder="Write a short description..."
             rows="4"
           ></textarea>
@@ -148,12 +163,12 @@ const AddArtwork = () => {
           </div>
           <div>
             <p>
-            <span className="font-semibold">Artist Name:</span>{" "}
-            {user?.displayName}
-          </p>
-          <p>
-            <span className="font-semibold">Email:</span> {user?.email}
-          </p>
+              <span className="font-semibold">Artist Name:</span>{" "}
+              {user?.displayName}
+            </p>
+            <p>
+              <span className="font-semibold">Email:</span> {user?.email}
+            </p>
           </div>
         </div>
 

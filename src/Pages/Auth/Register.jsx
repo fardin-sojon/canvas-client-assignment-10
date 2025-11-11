@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 
 const Register = () => {
 
-    const {signInWithGoogle, setLoading, user} = use(AuthContext)
+    const {signInWithGoogle, setLoading, user, createUser} = use(AuthContext)
     console.log(user);
 
     const navigate = useNavigate()
@@ -22,14 +22,15 @@ const Register = () => {
     const password = e.target.password.value;
 
     console.log({ name, email, photoURL, password });
-    // createUser(auth, email, password)
-    // .then(result=>{
-    //     console.log(result.user);
-    //     toast.success("Register Succesfully")
-    // })
-    // .catch(error=>{
-    //     console.log(error.message);
-    // })
+    createUser(email, password)
+    .then(result=>{
+      navigate('/')
+        console.log(result.user);
+        toast.success("Register Succesfully")
+    })
+    .catch(error=>{
+        console.log(error.message);
+    })
   };
 
   const googleLogin = ()=>{

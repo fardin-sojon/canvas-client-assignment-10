@@ -116,7 +116,7 @@ const Navber = () => {
               </Link>
             </div>
           ) : (
-            <div className="dropdown dropdown-end z-50 text-white">
+            <div className="dropdown dropdown-end dropdown-hover z-50 text-white">
               <div
                 tabIndex={0}
                 role="button"
@@ -135,7 +135,7 @@ const Navber = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu  menu-sm dropdown-content  bg-gradient-to-r from-[#2575fc] to-[#6a11cb]  rounded-box z-50 mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content  bg-gradient-to-r from-[#2575fc] to-[#6a11cb]  rounded-box z-50  w-52 p-2 shadow"
               >
                 <div className=" pb-3 border-b border-b-gray-200">
                   <li className="text-sm font-bold">{user?.displayName}</li>
