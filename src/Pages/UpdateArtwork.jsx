@@ -6,7 +6,7 @@ const UpdateArtwork = () => {
   const { user } = use(AuthContext);
   const data = useLoaderData();
   console.log(data);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleUpdateArtwork = (e) => {
     e.preventDefault();
@@ -31,17 +31,20 @@ const UpdateArtwork = () => {
       createdAt: new Date().toISOString(),
     };
 
-    fetch(`http://localhost:3000/artwork/${data._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateArtwork),
-    })
+    fetch(
+      `https://canvas-server-assignment-10.vercel.app/artwork/${data._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateArtwork),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("after update", data);
-        navigate('/my-gallery')
+        navigate("/my-gallery");
       });
   };
 
@@ -52,7 +55,7 @@ const UpdateArtwork = () => {
           Update
         </h2>
 
-        <form  onSubmit={handleUpdateArtwork} className="space-y-5">
+        <form onSubmit={handleUpdateArtwork} className="space-y-5">
           {/* Title */}
           <div>
             <label className="text-gray-700 font-medium">Artwork Title</label>

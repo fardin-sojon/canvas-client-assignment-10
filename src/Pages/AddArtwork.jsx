@@ -37,7 +37,7 @@ const AddArtwork = () => {
       createdAt: new Date().toISOString(),
     };
 
-    fetch("http://localhost:3000/artwork", {
+    fetch("https://canvas-server-assignment-10.vercel.app/artwork", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newArtwork),

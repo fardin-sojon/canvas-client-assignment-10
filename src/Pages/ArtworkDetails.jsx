@@ -15,52 +15,57 @@ const ArtworkDetails = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`http://localhost:3000/favorites/${user.email}`)
-      .then(res => res.json())
-      .then(data => {
-        const fav = data.find(f => f._id === art._id);
+    fetch(
+      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const fav = data.find((f) => f._id === art._id);
         if (fav) setIsFavorite(true);
       });
   }, [user, art._id]);
 
   const handleLike = () => {
-  if (!user) {
-    toast.error("Please login to like the artwork.");
-    return;
-  }
+    if (!user) {
+      toast.error("Please login to like the artwork.");
+      return;
+    }
 
-  fetch(`http://localhost:3000/artwork/${art._id}/like`, {
-    method: "PATCH",
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.modifiedCount > 0 || data.acknowledged) {
-        setLikes(prev => prev + 1); // client-side UI update
-        toast.success("You liked this artwork!");
-      } else {
-        toast.error("Failed to update like. Try again.");
+    fetch(
+      `https://canvas-server-assignment-10.vercel.app/artwork/${art._id}/like`,
+      {
+        method: "PATCH",
       }
-    })
-    .catch(err => toast.error("Something went wrong!"));
-};
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0 || data.acknowledged) {
+          setLikes((prev) => prev + 1); // client-side UI update
+          toast.success("You liked this artwork!");
+        } else {
+          toast.error("Failed to update like. Try again.");
+        }
+      })
+      .catch((err) => toast.error("Something went wrong!"));
+  };
   const handleFavorite = () => {
     if (!user) return toast.error("Please login to manage favorites.");
 
     if (!isFavorite) {
       // Add to favorite
       setIsFavorite(true);
-      fetch("http://localhost:3000/favorites", {
+      fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ artworkId: art._id, userEmail: user.email })
+        body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),
       });
     } else {
       // Remove from favorite
       setIsFavorite(false);
-      fetch("http://localhost:3000/favorites", {
+      fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ artworkId: art._id, userEmail: user.email })
+        body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),
       });
     }
   };
@@ -93,8 +98,12 @@ const ArtworkDetails = () => {
 
           {/* Artwork Details */}
           <div className="md:w-1/3 flex flex-col gap-4">
-            <h1 className="text-4xl font-extrabold text-purple-700">{art.title}</h1>
-            <p className="text-gray-700 font-medium">Category: {art.category}</p>
+            <h1 className="text-4xl font-extrabold text-purple-700">
+              {art.title}
+            </h1>
+            <p className="text-gray-700 font-medium">
+              Category: {art.category}
+            </p>
             <p className="text-gray-700 font-medium">Medium: {art.medium}</p>
 
             {/* Artist Info */}
@@ -105,12 +114,18 @@ const ArtworkDetails = () => {
                 className="w-16 h-16 rounded-full object-cover border border-gray-200"
               />
               <div>
-                <p className="font-semibold text-purple-800">{art.artistName}</p>
-                <p className="text-gray-500 text-sm">Total Artworks: {art.artistTotalArtworks}</p>
+                <p className="font-semibold text-purple-800">
+                  {art.artistName}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  Total Artworks: {art.artistTotalArtworks}
+                </p>
               </div>
             </div>
 
-            <p className="text-gray-400 text-xs mt-2">Added on: {formattedDate}</p>
+            <p className="text-gray-400 text-xs mt-2">
+              Added on: {formattedDate}
+            </p>
 
             {/* Like & Favorite Buttons */}
             <div className="flex gap-4 mt-4">

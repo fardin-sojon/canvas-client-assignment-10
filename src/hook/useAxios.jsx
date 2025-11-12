@@ -1,11 +1,11 @@
-import axios from "axios"
+import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000'
-})
+  baseURL: "https://canvas-server-assignment-10.vercel.app",
+});
 
-const useAxios = ()=>{
-    return axiosInstance;
-}
+const useAxios = () => {
+  return axiosInstance;
+};
 
 export default useAxios;
