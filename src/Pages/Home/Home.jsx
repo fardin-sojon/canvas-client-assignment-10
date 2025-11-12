@@ -1,5 +1,5 @@
 import React from "react";
-import MySlider from "./MySlider";
+import MySlider from "./Slider/MySlider";
 import { useLoaderData } from "react-router";
 import ArtworkCard from "./ArtworkCard";
 

@@ -5,11 +5,17 @@ import ArtworkCard from "./Home/ArtworkCard";
 const ExploreArtworks = () => {
   const artData = useLoaderData();
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Filtered artworks
-  const filteredArtworks = artData.filter((art) =>
-    art.title.toLowerCase().includes(search.toLowerCase())
-  );
+  // Extract unique categories from the data
+  const categories = ["All", ...new Set(artData.map((art) => art.category))];
+
+  // Filtered artworks based on search & category
+  const filteredArtworks = artData.filter((art) => {
+    const matchesSearch = art.title.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || art.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-5">
@@ -18,7 +24,7 @@ const ExploreArtworks = () => {
       </h2>
 
       {/* 🔍 Search Input */}
-      <div className="flex justify-center my-6">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 my-6">
         <input
           type="text"
           placeholder="Search artworks..."
@@ -26,6 +32,19 @@ const ExploreArtworks = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full sm:w-1/2 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
+
+        {/* 🎨 Category Filter */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full sm:w-1/4 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+        >
+          {categories.map((cat, idx) => (
+            <option key={idx} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* 🖼️ Artwork Grid */}

@@ -29,17 +29,13 @@ const ArtworkDetails = () => {
     return;
   }
 
-  const updatedLikes = likes + 1;
-
   fetch(`http://localhost:3000/artwork/${art._id}/like`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ likes: updatedLikes }) 
   })
     .then(res => res.json())
     .then(data => {
       if (data.modifiedCount > 0 || data.acknowledged) {
-        setLikes(updatedLikes); 
+        setLikes(prev => prev + 1); // client-side UI update
         toast.success("You liked this artwork!");
       } else {
         toast.error("Failed to update like. Try again.");
@@ -47,7 +43,6 @@ const ArtworkDetails = () => {
     })
     .catch(err => toast.error("Something went wrong!"));
 };
-
   const handleFavorite = () => {
     if (!user) return toast.error("Please login to manage favorites.");
 

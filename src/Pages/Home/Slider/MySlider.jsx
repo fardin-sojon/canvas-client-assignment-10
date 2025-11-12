@@ -1,9 +1,10 @@
 import React from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import art1 from "../../assets/art1.jpg";
-import art2 from "../../assets/art2.avif";
-import art3 from "../../assets/art3.jpg";
+import art1 from "../../../assets/art1.jpg";
+import art2 from "../../../assets/art2.avif";
+import art3 from "../../../assets/art3.jpg"
+import './slider.css'
 
 const MySlider = () => {
   const images = [
@@ -25,7 +26,7 @@ const MySlider = () => {
   ];
 
   return (
-    <div className="mt-7 rounded-xl overflow-hidden shadow-2xl">
+    <div className="mt-7  rounded-2xl overflow-hidden shadow-2xl">
       <ImageGallery
         items={images}
         showPlayButton={true}
@@ -36,6 +37,7 @@ const MySlider = () => {
         showThumbnails={false}
         lazyLoad={true}
         infinite={true}
+        additionalClass="custom-gallery"
       />
     </div>
   );
