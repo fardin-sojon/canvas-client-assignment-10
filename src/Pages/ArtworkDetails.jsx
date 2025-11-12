@@ -34,12 +34,12 @@ const ArtworkDetails = () => {
   fetch(`http://localhost:3000/artwork/${art._id}/like`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ likes: updatedLikes }) // DB-তে নতুন like count পাঠাচ্ছি
+    body: JSON.stringify({ likes: updatedLikes }) 
   })
     .then(res => res.json())
     .then(data => {
       if (data.modifiedCount > 0 || data.acknowledged) {
-        setLikes(updatedLikes); // UI আপডেট
+        setLikes(updatedLikes); 
         toast.success("You liked this artwork!");
       } else {
         toast.error("Failed to update like. Try again.");
@@ -137,16 +137,6 @@ const ArtworkDetails = () => {
                 ⭐ {isFavorite ? "Favorited" : "Add to Favorites"}
               </button>
             </div>
-
-            {/* Contact Artist */}
-            <a
-              href={`https://mail.google.com/mail/?view=cm&fs=1&to=artist@example.com&subject=Inquiry about ${art.title}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-blue-600 transition font-semibold text-center"
-            >
-              Contact Artist
-            </a>
           </div>
         </div>
       </div>

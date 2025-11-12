@@ -11,20 +11,20 @@ const Home = () => {
   const topArtists = [
     {
       id: 1,
-      name: "Nadia Akter",
-      photo: "https://i.ibb.co/tPtLKd1/artist1.jpg",
+      name: "Fardin Rahman Sojon",
+      photo: "https://i.ibb.co.com/Dxr4tHj/fardin.jpg",
       artworks: 24,
     },
     {
       id: 2,
-      name: "Rafiul Hasan",
-      photo: "https://i.ibb.co/VWcCtjR/artist2.jpg",
+      name: "Rifat Hasan",
+      photo: "https://i.ibb.co.com/G4s41tQL/rifat.jpg",
       artworks: 18,
     },
     {
       id: 3,
-      name: "Farzana Islam",
-      photo: "https://i.ibb.co/LJ9Fzvq/artist3.jpg",
+      name: "Refat Hasan",
+      photo: "https://i.ibb.co.com/35cjGSK2/rifat-2.jpg",
       artworks: 15,
     },
   ];
@@ -33,14 +33,16 @@ const Home = () => {
     {
       id: 1,
       title: "Local Art Exhibition 2025",
-      description: "A colorful art fest featuring 50+ new artists from all over Bangladesh.",
-      image: "https://i.ibb.co/9tN8Rcb/exhibition.jpg",
+      description:
+        "A colorful art fest featuring 50+ new artists from all over Bangladesh.",
+      image: "https://i.ibb.co.com/1fmRNHNh/highlight1.webp",
     },
     {
       id: 2,
       title: "Digital Art Workshop",
-      description: "Learn digital painting and concept design with expert mentors.",
-      image: "https://i.ibb.co/8sBgLtz/workshop.jpg",
+      description:
+        "Learn digital painting and concept design with expert mentors.",
+      image: "https://i.ibb.co.com/Cp080xyf/digital-ar.jpg",
     },
   ];
 
@@ -73,7 +75,7 @@ const Home = () => {
               <img
                 src={artist.photo}
                 alt={artist.name}
-                className="w-28 h-28 rounded-full object-cover border-4 border-purple-300 mb-4"
+                className="w-28 h-28 rounded-full object-cover border-4 border-purple-500 mb-4"
               />
               <h3 className="text-xl font-semibold text-purple-800">
                 {artist.name}

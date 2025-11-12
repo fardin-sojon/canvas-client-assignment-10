@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../Provider/AuthContext";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading/Loading";
 
@@ -57,18 +56,18 @@ const MyFavorites = () => {
         {favorites.map((fav) => (
           <div
             key={fav._id}
-            className="bg-purple-100 p-4 rounded-lg shadow hover:shadow-lg transition"
+            className="bg-purple-100 p-4 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
           >
             <img
               src={fav.image}
               alt={fav.title}
               className="w-full h-48 object-cover rounded"
             />
-            <h4 className="text-xl font-semibold mt-2">{fav.title}</h4>
+            <h4 className="text-xl text-black font-semibold mt-2">{fav.title}</h4>
             <p className="text-gray-500">{fav.category}</p>
             <button
               onClick={() => handleUnfavorite(fav._id)}
-              className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+              className="mt-2 px-4 py-2 bg-red-500 text-white  rounded hover:bg-red-600 transition"
             >
               Remove Favorite
             </button>

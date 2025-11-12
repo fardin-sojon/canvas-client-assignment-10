@@ -5,14 +5,13 @@ import { AuthContext } from "../../Provider/AuthContext";
 import { auth } from "../../Firebase/firebase.init";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+  const { signInWithGoogle, user, createUser } = use(AuthContext);
+  console.log(user);
 
-    const {signInWithGoogle, setLoading, user, createUser} = use(AuthContext)
-    console.log(user);
-
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -21,35 +20,67 @@ const Register = () => {
     const photoURL = e.target.photo.value;
     const password = e.target.password.value;
 
-    console.log({ name, email, photoURL, password });
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 6 characters and include uppercase and lowercase letters."
+      );
+      return;
+    }
+
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then(() => {
+  //       updateProfile(auth.currentUser, { displayName: name, photoURL })
+  //         .then(() => {
+  //           toast.success("Registration Successfully✅");
+  //           navigate(location?.state || "/");
+  //         })
+  //         .catch((error) => toast.error(error.message));
+  //     })
+  //     .catch((error) => toast.error(error.message));
+  // };
+
     createUser(email, password)
-    .then(result=>{
-      navigate('/')
-        console.log(result.user);
-        toast.success("Register Succesfully")
-    })
-    .catch(error=>{
+      .then(() => {
+        updateProfile( auth.currentUser,{
+            displayName: name,
+            photoURL: photoURL,
+          })
+          .then(() => {
+            toast.success("Registered Successfully");
+            navigate(location?.state || "/");
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Profile update failed");
+          });
+      })
+      .catch((error) => {
         console.log(error.message);
-    })
+        toast.error(error.message);
+      });
   };
 
-  const googleLogin = ()=>{
+  const googleLogin = () => {
     signInWithGoogle(auth)
-    .then(result=>{
+      .then((result) => {
         console.log(result.user);
-         navigate(location?.state ? location.state : "/");
-        toast.success("Login Successfully")
-    })
-    .catch(error=>{
+        navigate(location?.state || "/");
+        toast.success("Login Successfully");
+      })
+      .catch((error) => {
         console.log(error.message);
-        toast.success(error.message)
-    })
-  }
+        toast.success(error.message);
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="backdrop-blur-lg gradient-color shadow-2xl rounded-2xl p-8 w-full max-w-md text-white">
-        <h2 className="text-3xl font-bold text-center mb-6">Create an Account</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Create an Account
+        </h2>
 
         <form onSubmit={handleRegister} className="space-y-5">
           <div>
@@ -108,7 +139,10 @@ const Register = () => {
 
         <div className="divider text-white/60">or</div>
 
-        <button onClick={googleLogin} className="btn w-full bg-white text-gray-700 hover:bg-gray-200">
+        <button
+          onClick={googleLogin}
+          className="btn w-full bg-white text-gray-700 hover:bg-gray-200"
+        >
           <FcGoogle size={20} />
           Continue with Google
         </button>
