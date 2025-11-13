@@ -15,7 +15,9 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetch(`http://localhost:5174/favorites/${user.email}`)
+    fetch(
+      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setFavorites(data));
   }, [user]);
@@ -31,7 +33,7 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch("http://localhost:5174/favorites", {
+        fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ artworkId, userEmail: user.email }),

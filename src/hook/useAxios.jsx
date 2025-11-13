@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5174",
+  baseURL: "https://canvas-server-assignment-10.vercel.app",
 });
 
 const useAxios = () => {

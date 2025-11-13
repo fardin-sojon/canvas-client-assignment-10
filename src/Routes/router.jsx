@@ -22,17 +22,23 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () => fetch("http://localhost:5174/recent-artwork"),
+        loader: () =>
+          fetch(
+            "https://canvas-server-assignment-10.vercel.app/recent-artwork"
+          ),
       },
       {
         path: "/explore-artwork",
-        loader: () => fetch("http://localhost:5174/artwork"),
+        loader: () =>
+          fetch("https://canvas-server-assignment-10.vercel.app/artwork"),
         element: <ExploreArtworks />,
       },
       {
         path: "/artworkDetails/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5174/artwork/${params.id}`),
+          fetch(
+            `https://canvas-server-assignment-10.vercel.app/artwork/${params.id}`
+          ),
         element: (
           <PrivetRoute>
             <ArtworkDetails />
@@ -66,7 +72,9 @@ const router = createBrowserRouter([
       {
         path: "/updateArtwork/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5174/artwork/${params.id}`),
+          fetch(
+            `https://canvas-server-assignment-10.vercel.app/artwork/${params.id}`
+          ),
         element: <UpdateArtwork />,
       },
       {

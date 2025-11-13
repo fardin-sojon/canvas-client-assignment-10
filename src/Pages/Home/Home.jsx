@@ -2,6 +2,7 @@ import React from "react";
 import MySlider from "./Slider/MySlider";
 import { useLoaderData } from "react-router"; 
 import ArtworkCard from "./ArtworkCard";
+import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },

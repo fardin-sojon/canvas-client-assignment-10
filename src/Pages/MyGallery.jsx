@@ -9,7 +9,9 @@ const MyGallery = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5174/artwork?email=${user.email}`)
+      fetch(
+        `https://canvas-server-assignment-10.vercel.app/artwork?email=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -29,7 +31,7 @@ const MyGallery = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5174/artwork/${_id}`, {
+        fetch(`https://canvas-server-assignment-10.vercel.app/artwork/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
