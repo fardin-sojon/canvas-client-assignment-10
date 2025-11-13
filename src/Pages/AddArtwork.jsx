@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
-
 import { AuthContext } from "../Provider/AuthContext";
+import { motion } from "framer-motion";
 
 const AddArtwork = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
@@ -66,7 +66,13 @@ const AddArtwork = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-purple-100 p-8 rounded-2xl shadow-lg my-10">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-3xl mx-auto bg-purple-100 p-8 rounded-2xl shadow-lg my-10"
+    >
       <h2 className="text-3xl text-center font-bold text-gray-800 mb-6">
         Add New Artwork
       </h2>
@@ -98,7 +104,6 @@ const AddArtwork = () => {
 
         {/* Category & Medium */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {/* Category Select */}
           <div>
             <label className="text-gray-700 font-medium">Category</label>
             <select
@@ -119,7 +124,6 @@ const AddArtwork = () => {
             </select>
           </div>
 
-          {/* Total Artworks */}
           <div>
             <label className="text-gray-700 font-medium">Total Artworks</label>
             <input
@@ -131,7 +135,6 @@ const AddArtwork = () => {
             />
           </div>
 
-          {/* Tools */}
           <div>
             <label className="text-gray-700 font-medium">Tools</label>
             <input
@@ -173,15 +176,17 @@ const AddArtwork = () => {
         </div>
 
         {/* Submit Button */}
-        <button
+        <motion.button
           type="submit"
           disabled={loading}
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
           className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:opacity-90 transition"
         >
           Add Artwork
-        </button>
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

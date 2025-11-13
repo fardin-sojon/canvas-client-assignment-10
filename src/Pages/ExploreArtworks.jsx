@@ -30,14 +30,14 @@ const ExploreArtworks = () => {
           placeholder="Search artworks..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-1/2 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="w-full sm:w-1/3 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
 
         {/* 🎨 Category Filter */}
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full sm:w-1/4 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="w-full sm:w-1/7 px-4 py-2 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           {categories.map((cat, idx) => (
             <option key={idx} value={cat}>

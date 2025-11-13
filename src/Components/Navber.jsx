@@ -82,7 +82,7 @@ const Navber = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-white">Canvas</span>
+            <Link to='/' className="text-2xl font-bold cursor-pointer text-white">Canvas</Link>
           </div>
         </div>
 

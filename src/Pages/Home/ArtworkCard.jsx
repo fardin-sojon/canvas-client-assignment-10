@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
+import { Fade } from "react-awesome-reveal";
 
 const ArtworkCard = ({ art }) => {
   return (
-    <div>
+    <Fade triggerOnce={true} cascade={false} direction="up" duration={600}>
       <div className="bg-purple-100 rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 group">
         {/* Image */}
         <div className="relative">
           <img
             src={art.image}
             alt={art.title}
-            className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-500 text-black"
+            className="w-full h-50 object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
 
@@ -36,7 +37,7 @@ const ArtworkCard = ({ art }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 };
 

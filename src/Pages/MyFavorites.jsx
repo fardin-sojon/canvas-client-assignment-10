@@ -2,6 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../Provider/AuthContext";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading/Loading";
+import { motion } from "framer-motion";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const MyFavorites = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
@@ -9,14 +15,10 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetch(
-      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
-    )
+    fetch(`https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`)
       .then((res) => res.json())
-      .then((data) => {
-        setFavorites(data);
-      });
-  }, [user, setLoading]);
+      .then((data) => setFavorites(data));
+  }, [user]);
 
   const handleUnfavorite = (artworkId) => {
     Swal.fire({
@@ -45,11 +47,11 @@ const MyFavorites = () => {
     });
   };
 
-  if (loading) return <Loading></Loading>;
+  if (loading) return <Loading />;
   if (!user)
-    return <p className="text-center mt-10">Please login to view favorites.</p>;
+    return <p className="text-center mt-10 text-gray-500">Please login to view favorites.</p>;
   if (favorites.length === 0)
-    return <p className="text-center mt-10">No favorites yet.</p>;
+    return <p className="text-center mt-10 text-gray-500">No favorites yet.</p>;
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -58,8 +60,14 @@ const MyFavorites = () => {
       </h3>
       <div className="grid md:grid-cols-3 gap-6">
         {favorites.map((fav) => (
-          <div
+          <motion.div
             key={fav._id}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.03 }}
             className="bg-purple-100 p-4 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
           >
             <img
@@ -67,17 +75,15 @@ const MyFavorites = () => {
               alt={fav.title}
               className="w-full h-48 object-cover rounded"
             />
-            <h4 className="text-xl text-black font-semibold mt-2">
-              {fav.title}
-            </h4>
+            <h4 className="text-xl text-black font-semibold mt-2">{fav.title}</h4>
             <p className="text-gray-500">{fav.category}</p>
             <button
               onClick={() => handleUnfavorite(fav._id)}
-              className="mt-2 px-4 py-2 bg-red-500 text-white  rounded hover:bg-red-600 transition"
+              className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
             >
               Remove Favorite
             </button>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
