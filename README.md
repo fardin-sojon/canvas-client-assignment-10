@@ -78,12 +78,6 @@ It emphasizes creativity, modern UI, and smooth interactions for art lovers.
 
 ## ⚙️ Run Locally
 ```bash
-# Clone the project
-git clone https://github.com/fardin-sojon/canvas.git
-
-# Navigate to project folder
-cd canvas
-
 # Install dependencies
 npm install
 
