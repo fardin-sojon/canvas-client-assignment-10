@@ -15,9 +15,7 @@ const ArtworkDetails = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(
-      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
-    )
+    fetch(`https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         const fav = data.find((f) => f._id === art._id);
@@ -31,12 +29,9 @@ const ArtworkDetails = () => {
       return;
     }
 
-    fetch(
-      `https://canvas-server-assignment-10.vercel.app/artwork/${art._id}/like`,
-      {
-        method: "PATCH",
-      }
-    )
+    fetch(`https://canvas-server-assignment-10.vercel.app/artwork/${art._id}/like`, {
+      method: "PATCH",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0 || data.acknowledged) {
