@@ -31,16 +31,13 @@ const UpdateArtwork = () => {
       createdAt: new Date().toISOString(),
     };
 
-    fetch(
-      `https://canvas-server-assignment-10.vercel.app/artwork/${data._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(updateArtwork),
-      }
-    )
+    fetch(`http://localhost:5174/artwork/${data._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateArtwork),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log("after update", data);

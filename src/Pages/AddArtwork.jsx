@@ -16,10 +16,7 @@ const AddArtwork = () => {
     const artistTotalArtworks = e.target.totalArtwork.value;
     const Tools = e.target.Tools.value;
     const description = e.target.description.value;
-
-    const visibility = e.target.visibility?.value || "Public";
-    const dimensions = e.target.dimensions?.value || "";
-    const price = e.target.price?.value || "";
+    const visibility = e.target.visibility.value || "Public";
 
     const newArtwork = {
       title,
@@ -28,8 +25,6 @@ const AddArtwork = () => {
       artistTotalArtworks,
       Tools,
       description,
-      dimensions,
-      price,
       visibility,
       artistName: user?.displayName,
       artistPhoto: user?.photoURL,
@@ -48,18 +43,19 @@ const AddArtwork = () => {
         if (data.insertedId) {
           e.target.reset();
           Swal.fire({
-            title: "Artwork Added!",
+            title: "✅ Artwork Added Successfully!",
             icon: "success",
-            draggable: true,
+            confirmButtonColor: "#7C3AED",
           });
         }
       })
       .catch((err) => {
         setLoading(false);
         Swal.fire({
-          title: "Error!",
-          text: "Something went wrong. Try again.",
+          title: "❌ Error!",
+          text: "Something went wrong. Please try again.",
           icon: "error",
+          confirmButtonColor: "#7C3AED",
         });
         console.error(err);
       });
@@ -102,7 +98,7 @@ const AddArtwork = () => {
           />
         </div>
 
-        {/* Category & Medium */}
+        {/* Category, Total Artworks & Tools */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           <div>
             <label className="text-gray-700 font-medium">Category</label>
@@ -142,7 +138,7 @@ const AddArtwork = () => {
               name="Tools"
               required
               className="w-full mt-2 p-3 rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-black"
-              placeholder="Medium"
+              placeholder="Medium / Tools"
             />
           </div>
         </div>
@@ -159,7 +155,34 @@ const AddArtwork = () => {
           ></textarea>
         </div>
 
-        {/* Read-only artist info */}
+        {/* ✅ Visibility */}
+        <div>
+          <label className="text-gray-700 font-medium">Visibility</label>
+          <div className="mt-3 flex gap-6">
+            <label className="flex items-center gap-2 text-gray-800">
+              <input
+                type="radio"
+                name="visibility"
+                value="Public"
+                defaultChecked
+                className="accent-purple-500 w-5 h-5 cursor-pointer"
+              />
+              <span>Public</span>
+            </label>
+
+            <label className="flex items-center gap-2 text-gray-800">
+              <input
+                type="radio"
+                name="visibility"
+                value="Private"
+                className="accent-purple-500 w-5 h-5 cursor-pointer"
+              />
+              <span>Private</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Artist Info (Read-only) */}
         <div className="bg-gray-100 p-4 rounded-lg text-gray-700 border border-gray-200 flex items-center gap-3">
           <div>
             <img className="w-12 rounded-full" src={user?.photoURL} alt="" />
@@ -183,7 +206,7 @@ const AddArtwork = () => {
           transition={{ type: "spring", stiffness: 300 }}
           className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:opacity-90 transition"
         >
-          Add Artwork
+          {loading ? "Adding..." : "Add Artwork"}
         </motion.button>
       </form>
     </motion.div>

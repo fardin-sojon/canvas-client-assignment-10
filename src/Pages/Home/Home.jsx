@@ -2,7 +2,6 @@ import React from "react";
 import MySlider from "./Slider/MySlider";
 import { useLoaderData } from "react-router"; 
 import ArtworkCard from "./ArtworkCard";
-import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -11,6 +10,7 @@ const fadeUp = {
 
 const Home = () => {
   const cardData = useLoaderData();
+  console.log(cardData);
 
   const topArtists = [
     { id: 1, name: "Fardin Rahman Sojon", photo: "https://i.ibb.co.com/Dxr4tHj/fardin.jpg", artworks: 24 },

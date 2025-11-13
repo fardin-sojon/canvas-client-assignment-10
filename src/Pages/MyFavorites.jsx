@@ -15,7 +15,7 @@ const MyFavorites = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetch(`https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`)
+    fetch(`http://localhost:5174/favorites/${user.email}`)
       .then((res) => res.json())
       .then((data) => setFavorites(data));
   }, [user]);
@@ -31,7 +31,7 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
+        fetch("http://localhost:5174/favorites", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ artworkId, userEmail: user.email }),
@@ -49,7 +49,11 @@ const MyFavorites = () => {
 
   if (loading) return <Loading />;
   if (!user)
-    return <p className="text-center mt-10 text-gray-500">Please login to view favorites.</p>;
+    return (
+      <p className="text-center mt-10 text-gray-500">
+        Please login to view favorites.
+      </p>
+    );
   if (favorites.length === 0)
     return <p className="text-center mt-10 text-gray-500">No favorites yet.</p>;
 
@@ -75,7 +79,9 @@ const MyFavorites = () => {
               alt={fav.title}
               className="w-full h-48 object-cover rounded"
             />
-            <h4 className="text-xl text-black font-semibold mt-2">{fav.title}</h4>
+            <h4 className="text-xl text-black font-semibold mt-2">
+              {fav.title}
+            </h4>
             <p className="text-gray-500">{fav.category}</p>
             <button
               onClick={() => handleUnfavorite(fav._id)}
