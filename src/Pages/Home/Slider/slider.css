@@ -3,3 +3,17 @@
   height: 500px; 
   object-fit: cover;
 }
+
+/* Mobile devices (up to 768px) */
+@media (max-width: 768px) {
+  .custom-gallery .image-gallery-slide img {
+    height: 300px; 
+  }
+}
+
+/* Extra small devices (up to 480px) */
+@media (max-width: 480px) {
+  .custom-gallery .image-gallery-slide img {
+    height: 200px; 
+  }
+}
