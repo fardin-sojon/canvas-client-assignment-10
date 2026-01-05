@@ -12,6 +12,12 @@ import MyFavorites from "../Pages/MyFavorites";
 import ArtworkDetails from "../Pages/ArtworkDetails";
 import PrivetRoute from "../Provider/PrivetRoute";
 import UpdateArtwork from "../Pages/UpdateArtwork";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import DashboardHome from "../Pages/Dashboard/DashboardHome";
+import AllUsers from "../Pages/Dashboard/AllUsers";
+import ManageArtworks from "../Pages/Dashboard/ManageArtworks";
+import AboutUs from "../Pages/AboutUs";
+import ContactUs from "../Pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -22,60 +28,21 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () =>
-          fetch(
-            "https://canvas-server-assignment-10.vercel.app/recent-artwork"
-          ),
+        loader: () => fetch("http://localhost:5000/recent-artwork"),
       },
       {
         path: "/explore-artwork",
-        loader: () =>
-          fetch("https://canvas-server-assignment-10.vercel.app/artwork"),
+        loader: () => fetch("http://localhost:5000/artwork"),
         element: <ExploreArtworks />,
       },
       {
         path: "/artworkDetails/:id",
-        loader: ({ params }) =>
-          fetch(
-            `https://canvas-server-assignment-10.vercel.app/artwork/${params.id}`
-          ),
+        loader: ({ params }) => fetch(`http://localhost:5000/artwork/${params.id}`),
         element: (
           <PrivetRoute>
             <ArtworkDetails />
           </PrivetRoute>
         ),
-      },
-      {
-        path: "/add-artwork",
-        element: (
-          <PrivetRoute>
-            <AddArtwork />
-          </PrivetRoute>
-        ),
-      },
-      {
-        path: "/my-gallery",
-        element: (
-          <PrivetRoute>
-            <MyGallery />
-          </PrivetRoute>
-        ),
-      },
-      {
-        path: "/my-favorites",
-        element: (
-          <PrivetRoute>
-            <MyFavorites />
-          </PrivetRoute>
-        ),
-      },
-      {
-        path: "/updateArtwork/:id",
-        loader: ({ params }) =>
-          fetch(
-            `https://canvas-server-assignment-10.vercel.app/artwork/${params.id}`
-          ),
-        element: <UpdateArtwork />,
       },
       {
         path: "/profile",
@@ -88,6 +55,57 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivetRoute>
+        <DashboardLayout />
+      </PrivetRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: "all-users",
+        element: <AllUsers />,
+      },
+      {
+        path: "manage-artworks",
+        element: <ManageArtworks />,
+      },
+      {
+        path: "add-artwork",
+        element: <AddArtwork />,
+      },
+      {
+        path: "my-gallery",
+        element: <MyGallery />,
+      },
+      {
+        path: "my-favorites",
+        element: <MyFavorites />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "update-artwork/:id",
+        loader: ({ params }) => fetch(`http://localhost:5000/artwork/${params.id}`),
+        element: <UpdateArtwork />,
       },
     ],
   },

@@ -1,3 +1,5 @@
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 import React, { use } from "react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -8,18 +10,21 @@ import { useNavigate } from "react-router";
 import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-  const { signInWithGoogle, user, createUser } = use(AuthContext);
+  const { signInWithGoogle, user, createUser, setLoading, setUser } = use(AuthContext);
   console.log(user);
 
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
+    // ... existing logic ...
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const photoURL = e.target.photo.value;
     const password = e.target.password.value;
-
+    // ... rest of handleRegister logic ...
+    
     // Password validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
@@ -29,130 +34,147 @@ const Register = () => {
       return;
     }
 
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then(() => {
-  //       updateProfile(auth.currentUser, { displayName: name, photoURL })
-  //         .then(() => {
-  //           toast.success("Registration Successfully✅");
-  //           navigate(location?.state || "/");
-  //         })
-  //         .catch((error) => toast.error(error.message));
-  //     })
-  //     .catch((error) => toast.error(error.message));
-  // };
-
     createUser(email, password)
-      .then(() => {
-        updateProfile( auth.currentUser,{
-            displayName: name,
-            photoURL: photoURL,
-          })
+      .then((result) => {
+        const currentUser = result.user;
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photoURL,
+        })
           .then(() => {
-            toast.success("Registered Successfully");
-            navigate(location?.state || "/");
+            // Update Auth Context State Manually
+            setUser({ ...currentUser, displayName: name, photoURL: photoURL, email: email });
+            
+            const userInfo = {
+              name: name,
+              email: email,
+              photoURL: photoURL,
+              role: "user",
+              creationTime: new Date().toISOString(),
+            };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userInfo),
+            })
+              .then((res) => res.json())
+              .then(() => {
+                toast.success("Registered Successfully");
+                navigate(location?.state || "/");
+              });
           })
           .catch((err) => {
             console.log(err);
             toast.error("Profile update failed");
+            setLoading(false);
           });
       })
       .catch((error) => {
         console.log(error.message);
         toast.error(error.message);
+        setLoading(false);
       });
   };
 
   const googleLogin = () => {
-    signInWithGoogle(auth)
+    // ... existing googleLogin logic ...
+     signInWithGoogle(auth)
       .then((result) => {
-        console.log(result.user);
-        navigate(location?.state || "/");
-        toast.success("Login Successfully");
+        const user = result.user;
+        const userInfo = {
+          name: user.displayName,
+          email: user.email || user?.providerData[0]?.email || `${user.uid}@anonymous.com`,
+          photoURL: user.photoURL,
+          role: "user",
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then((res) => res.json())
+          .then(() => {
+             navigate(location?.state || "/");
+             toast.success("Login Successfully");
+          });
       })
       .catch((error) => {
         console.log(error.message);
-        toast.success(error.message);
+        toast.error(error.message);
+        setLoading(false);
       });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="backdrop-blur-lg gradient-color shadow-2xl rounded-2xl p-8 w-full max-w-md text-white">
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Create an Account
-        </h2>
+      <div className="card bg-base-100 shadow-xl w-full max-w-md border border-base-200">
+        <div className="card-body">
+          <h2 className="text-3xl font-bold text-center mb-6 text-base-content">
+            Create an Account
+          </h2>
 
-        <form onSubmit={handleRegister} className="space-y-5">
-          <div>
-            <label className="block text-sm mb-1">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your full name"
-              className="input input-bordered w-full bg-white/20 placeholder-gray-200 text-white"
-              required
-            />
-          </div>
+          <form onSubmit={handleRegister} className="space-y-4">
+            <div className="form-control">
+              <label className="label"><span className="label-text">Full Name</span></label>
+              <input type="text" name="name" placeholder="Enter your full name" className="input input-bordered w-full" required />
+            </div>
 
-          <div>
-            <label className="block text-sm mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              className="input input-bordered w-full bg-white/20 placeholder-gray-200 text-white"
-              required
-            />
-          </div>
+            <div className="form-control">
+              <label className="label"><span className="label-text">Email</span></label>
+              <input type="email" name="email" placeholder="Enter your email" className="input input-bordered w-full" required />
+            </div>
 
-          <div>
-            <label className="block text-sm mb-1">Photo URL</label>
-            <input
-              type="text"
-              name="photo"
-              placeholder="Enter your photo URL"
-              className="input input-bordered w-full bg-white/20 placeholder-gray-200 text-white"
-            />
-          </div>
+            <div className="form-control">
+              <label className="label"><span className="label-text">Photo URL</span></label>
+              <input type="text" name="photo" placeholder="Enter your photo URL" className="input input-bordered w-full" />
+            </div>
 
-          <div>
-            <label className="block text-sm mb-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              className="input input-bordered w-full bg-white/20 placeholder-gray-200 text-white"
-              required
-            />
-            <p className="text-xs text-gray-200 mt-1">
-              Must contain uppercase, lowercase & minimum 6 characters.
-            </p>
-          </div>
+            <div className="form-control">
+              <label className="label"><span className="label-text">Password</span></label>
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  name="password" 
+                  placeholder="Enter your password" 
+                  className="input input-bordered w-full pr-10" 
+                  required 
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              <label className="label">
+                <span className="label-text-alt text-warning">Must contain uppercase, lowercase & min 6 chars.</span>
+              </label>
+            </div>
 
-          <button
-            type="submit"
-            className="btn w-full bg-gradient-to-r from-[#7A3FFF] to-[#C63BFA] border-none text-white hover:scale-105 transition-transform"
-          >
-            Register
+            <div className="form-control mt-6">
+               <button className="btn btn-primary text-white">Register</button>
+            </div>
+          </form>
+
+          <div className="divider">OR</div>
+
+          <button onClick={googleLogin} className="btn btn-outline w-full flex items-center gap-2">
+            <FcGoogle size={20} />
+            Continue with Google
           </button>
-        </form>
 
-        <div className="divider text-white/60">or</div>
-
-        <button
-          onClick={googleLogin}
-          className="btn w-full bg-white text-gray-700 hover:bg-gray-200"
-        >
-          <FcGoogle size={20} />
-          Continue with Google
-        </button>
-
-        <p className="text-center mt-4 text-sm text-gray-200">
-          Already have an account?{" "}
-          <Link to="/login" className="underline text-white font-semibold">
-            Login
-          </Link>
-        </p>
+          <p className="text-center mt-4 text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="link link-primary font-bold">
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

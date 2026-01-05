@@ -12,6 +12,7 @@ import { auth } from "../Firebase/firebase.init";
 import Loading from "../Components/Loading/Loading";
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('email');
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -55,12 +56,22 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unSubscribe();
-  }, [user]);
+  setLoading(true);
+  const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setLoading(false);
+
+    if (currentUser) {
+      const email = currentUser.email || currentUser.providerData[0]?.email || `${currentUser.uid}@anonymous.com`;
+      const photoURL = currentUser.photoURL || currentUser.providerData[0]?.photoURL;
+      setUser({ ...currentUser, email, photoURL });
+    } else {
+      setUser(null);
+    }
+  });
+
+  return () => unSubscribe();
+}, []);
+
 
   if (loading) {
     return <Loading />;

@@ -16,7 +16,7 @@ const MyFavorites = () => {
   useEffect(() => {
     if (!user) return;
     fetch(
-      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
+      `http://localhost:5000/favorites/${user.email}`
     )
       .then((res) => res.json())
       .then((data) => setFavorites(data));
@@ -33,7 +33,7 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
+        fetch("http://localhost:5000/favorites", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ artworkId, userEmail: user.email }),
@@ -86,7 +86,7 @@ const MyFavorites = () => {
             </h4>
             <p className="text-gray-500">{fav.category}</p>
             <button
-              onClick={() => handleUnfavorite(fav._id)}
+              onClick={() => handleUnfavorite(fav.artworkId)}
               className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
             >
               Remove Favorite

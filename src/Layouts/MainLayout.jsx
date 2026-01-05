@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
 import Footer from "../Components/Footer";
-import Navber from "../Components/Navber";
+import Navbar from "../Components/Navbar";
 
 const MainLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navber></Navber>
+      <Navbar />
       <div className="flex-1">
         <Outlet></Outlet>
       </div>

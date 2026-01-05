@@ -16,11 +16,11 @@ const ArtworkDetails = () => {
     if (!user) return;
 
     fetch(
-      `https://canvas-server-assignment-10.vercel.app/favorites/${user.email}`
+      `http://localhost:5000/favorites/${user.email}`
     )
       .then((res) => res.json())
       .then((data) => {
-        const fav = data.find((f) => f._id === art._id);
+        const fav = data.find((f) => f.artworkId === art._id);
         if (fav) setIsFavorite(true);
       });
   }, [user, art._id]);
@@ -32,7 +32,7 @@ const ArtworkDetails = () => {
     }
 
     fetch(
-      `https://canvas-server-assignment-10.vercel.app/artwork/${art._id}/like`,
+      `http://localhost:5000/artwork/${art._id}/like`,
       {
         method: "PATCH",
       }
@@ -54,7 +54,7 @@ const ArtworkDetails = () => {
     if (!isFavorite) {
       // Add to favorite
       setIsFavorite(true);
-      fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
+      fetch("http://localhost:5000/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),
@@ -62,7 +62,7 @@ const ArtworkDetails = () => {
     } else {
       // Remove from favorite
       setIsFavorite(false);
-      fetch("https://canvas-server-assignment-10.vercel.app/favorites", {
+      fetch("http://localhost:5000/favorites", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),
@@ -104,7 +104,7 @@ const ArtworkDetails = () => {
             <p className="text-gray-700 font-medium">
               Category: {art.category}
             </p>
-            <p className="text-gray-700 font-medium">Medium: {art.medium}</p>
+
 
             {/* Artist Info */}
             <div className="mt-6 flex items-center gap-4 bg-purple-100 p-4 rounded shadow-sm">

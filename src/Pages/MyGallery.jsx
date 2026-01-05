@@ -10,7 +10,7 @@ const MyGallery = () => {
   useEffect(() => {
     if (user?.email) {
       fetch(
-        `https://canvas-server-assignment-10.vercel.app/artwork?email=${user.email}`
+        `http://localhost:5000/artwork?email=${user.email}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -31,7 +31,7 @@ const MyGallery = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://canvas-server-assignment-10.vercel.app/artwork/${_id}`, {
+        fetch(`http://localhost:5000/artwork/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -83,7 +83,7 @@ const MyGallery = () => {
               {/* Update & Delete Buttons */}
               <div className="flex gap-3">
                 <Link
-                  to={`/updateArtwork/${art._id}`}
+                  to={`/dashboard/update-artwork/${art._id}`}
                   className="flex-1 bg-green-500 text-white font-medium py-2.5 rounded-lg hover:opacity-90 transition text-center"
                 >
                   Update
