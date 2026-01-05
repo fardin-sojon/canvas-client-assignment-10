@@ -1,16 +1,85 @@
-# React + Vite
+# 🎨 Canvas – A Creative Artwork Showcase Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🎯 Project Purpose
+Canvas is a single-page web application where artists can upload, showcase, and explore creative artworks.  
+Users can browse public artworks, like and favorite them, and manage their personal gallery.  
+It emphasizes creativity, modern UI, and smooth interactions for art lovers.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live URL
+🔗 [Live Site Link Here](https://canvas-client-assignment-10.netlify.app/)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🗝 Key Features
+✅ **User Authentication**
+- Login, Signup, and Google Sign-in with Firebase
+- Password validation (min 6 chars, uppercase & lowercase letters)
+- Private routes redirect unauthorized users to Login
 
-## Expanding the ESLint configuration
+✅ **Add Artwork Page (Private Route)**
+- Upload artwork with fields: Image URL, Title, Category, Medium/Tools, Description, Dimensions, Price, Visibility
+- Automatically saves user info (Name & Email)
+- Success toast on submission
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ **Explore Artworks Page**
+- Browse all public artworks
+- Card layout with image, title, artist name, category, likes count
+- Search by title or artist
+- Optional filter by category
+
+✅ **Artwork Details Page (Private Route)**
+- Full artwork details with artist info
+- Like and Add to Favorites functionalities
+
+✅ **My Gallery Page (Private Route)**
+- Displays logged-in user’s artworks
+- Update and Delete options with confirmation and pre-filled forms
+
+✅ **My Favorites Page (Private Route)**
+- Displays user’s favorite artworks
+- Unfavorite option
+
+✅ **Responsive Design & UI**
+- Works on mobile, tablet, and desktop
+- Navbar & Footer consistent across all pages
+- Creative 404 page without Navbar/Footer
+- Dark/Light theme toggle with localStorage persistence
+- Animations using Framer Motion and optional libraries
+
+---
+
+## 📦 NPM Packages Used
+| Package | Purpose |
+|---------|---------|
+| react | Core React library |
+| react-dom | DOM rendering |
+| react-router-dom | Routing & Protected Routes |
+| firebase | Authentication |
+| axios | API calls |
+| tailwindcss | Styling |
+| daisyui | Prebuilt Tailwind UI components |
+| framer-motion | Animations |
+| react-toastify / sweetalert2 | Toast notifications & Alerts |
+| react-icons / lucide-react | Icons for UI |
+
+---
+
+## 🧩 Tools & Technologies
+- React + Vite
+- TailwindCSS + DaisyUI
+- Firebase Authentication
+- MongoDB + Express + Node.js (Backend)
+- Responsive Web Design (RWD)
+- React Context for Auth Management
+
+---
+
+## ⚙️ Run Locally
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
