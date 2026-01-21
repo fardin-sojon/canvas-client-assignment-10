@@ -13,7 +13,7 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch("http://localhost:5000/users")
+      fetch(`${import.meta.env.VITE_API_URL}/users`)
         .then((res) => res.json())
         .then((data) => {
           const loggedInUser = data.find(u => u.email?.toLowerCase() === user?.email?.toLowerCase());

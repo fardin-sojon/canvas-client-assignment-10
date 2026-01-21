@@ -28,16 +28,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/recent-artwork"),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/recent-artwork`),
       },
       {
         path: "/explore-artwork",
-        loader: () => fetch("http://localhost:5000/artwork"),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/artwork`),
         element: <ExploreArtworks />,
       },
       {
         path: "/artworkDetails/:id",
-        loader: ({ params }) => fetch(`http://localhost:5000/artwork/${params.id}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/artwork/${params.id}`),
         element: (
           <PrivetRoute>
             <ArtworkDetails />
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
       },
       {
         path: "update-artwork/:id",
-        loader: ({ params }) => fetch(`http://localhost:5000/artwork/${params.id}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/artwork/${params.id}`),
         element: <UpdateArtwork />,
       },
     ],

@@ -20,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     if(user?.email){
         // Fetch user data from DB
-        fetch("http://localhost:5000/users")
+        fetch(`${import.meta.env.VITE_API_URL}/users`)
         .then(res => res.json())
         .then(data => {
             const loggedInUser = data.find(u => u.email?.toLowerCase() === user?.email?.toLowerCase());
@@ -32,12 +32,12 @@ const Profile = () => {
         });
 
         // Fetch stats (Artworks count)
-        fetch(`http://localhost:5000/artwork?email=${user.email}`)
+        fetch(`${import.meta.env.VITE_API_URL}/artwork?email=${user.email}`)
         .then(res => res.json())
         .then(data => setStats(prev => ({...prev, artworks: data.length})));
         
         // Fetch stats (Favorites count)
-        fetch(`http://localhost:5000/favorites/${user.email}`)
+        fetch(`${import.meta.env.VITE_API_URL}/favorites/${user.email}`)
         .then(res => res.json())
         .then(data => setStats(prev => ({...prev, favorites: data.length})));
     }

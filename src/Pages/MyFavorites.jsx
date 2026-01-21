@@ -16,7 +16,7 @@ const MyFavorites = () => {
   useEffect(() => {
     if (!user) return;
     fetch(
-      `http://localhost:5000/favorites/${user.email}`
+      `${import.meta.env.VITE_API_URL}/favorites/${user.email}`
     )
       .then((res) => res.json())
       .then((data) => setFavorites(data));
@@ -33,7 +33,7 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch("http://localhost:5000/favorites", {
+        fetch(`${import.meta.env.VITE_API_URL}/favorites`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ artworkId, userEmail: user.email }),

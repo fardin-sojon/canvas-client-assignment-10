@@ -8,7 +8,7 @@ const ManageArtworks = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/artwork")
+    fetch(`${import.meta.env.VITE_API_URL}/artwork`)
       .then((res) => res.json())
       .then((data) => setArtworks(data));
   }, []);
@@ -24,7 +24,7 @@ const ManageArtworks = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/artwork/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/artwork/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

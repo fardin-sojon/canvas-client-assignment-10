@@ -33,7 +33,7 @@ const DashboardHome = () => {
   });
 
   React.useEffect(() => {
-    fetch("http://localhost:5000/admin-stats")
+    fetch(`${import.meta.env.VITE_API_URL}/admin-stats`)
       .then(res => res.json())
       .then(data => setStats(data));
   }, []);

@@ -10,7 +10,7 @@ const MyGallery = () => {
   useEffect(() => {
     if (user?.email) {
       fetch(
-        `http://localhost:5000/artwork?email=${user.email}`
+        `${import.meta.env.VITE_API_URL}/artwork?email=${user.email}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -31,7 +31,7 @@ const MyGallery = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/artwork/${_id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/artwork/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

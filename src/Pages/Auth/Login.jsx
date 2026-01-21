@@ -44,7 +44,7 @@ const Login = () => {
             role: "user", // Default role
             creationTime: user.metadata.creationTime || new Date().toISOString(),
           };
-        fetch("http://localhost:5000/users", {
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

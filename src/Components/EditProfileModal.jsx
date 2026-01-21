@@ -23,7 +23,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onUpdate }) => {
             });
 
             // 2. Update Database Record
-            const res = await fetch(`http://localhost:5000/users/${user.email}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${user.email}`, {
                 method: "PATCH",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({ name, photoURL: photo })

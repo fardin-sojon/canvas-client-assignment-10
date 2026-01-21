@@ -52,7 +52,7 @@ const Register = () => {
               role: "user",
               creationTime: new Date().toISOString(),
             };
-            fetch("http://localhost:5000/users", {
+            fetch(`${import.meta.env.VITE_API_URL}/users`, {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -89,7 +89,7 @@ const Register = () => {
           photoURL: user.photoURL,
           role: "user",
         };
-        fetch("http://localhost:5000/users", {
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

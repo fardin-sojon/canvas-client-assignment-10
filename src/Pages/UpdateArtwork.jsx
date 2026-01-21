@@ -37,7 +37,7 @@ const UpdateArtwork = () => {
         };
 
         fetch(
-            `http://localhost:5000/artwork/${data._id}`,
+            `${import.meta.env.VITE_API_URL}/artwork/${data._id}`,
             {
                 method: "PATCH",
                 headers: {

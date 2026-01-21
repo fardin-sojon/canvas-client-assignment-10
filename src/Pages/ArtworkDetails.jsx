@@ -16,7 +16,7 @@ const ArtworkDetails = () => {
     if (!user) return;
 
     fetch(
-      `http://localhost:5000/favorites/${user.email}`
+      `${import.meta.env.VITE_API_URL}/favorites/${user.email}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -32,7 +32,7 @@ const ArtworkDetails = () => {
     }
 
     fetch(
-      `http://localhost:5000/artwork/${art._id}/like`,
+      `${import.meta.env.VITE_API_URL}/artwork/${art._id}/like`,
       {
         method: "PATCH",
       }
@@ -54,7 +54,7 @@ const ArtworkDetails = () => {
     if (!isFavorite) {
       // Add to favorite
       setIsFavorite(true);
-      fetch("http://localhost:5000/favorites", {
+      fetch(`${import.meta.env.VITE_API_URL}/favorites`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),
@@ -62,7 +62,7 @@ const ArtworkDetails = () => {
     } else {
       // Remove from favorite
       setIsFavorite(false);
-      fetch("http://localhost:5000/favorites", {
+      fetch(`${import.meta.env.VITE_API_URL}/favorites`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artworkId: art._id, userEmail: user.email }),

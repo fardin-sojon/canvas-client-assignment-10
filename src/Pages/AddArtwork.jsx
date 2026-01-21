@@ -35,7 +35,7 @@ const AddArtwork = () => {
       createdAt: new Date().toISOString(),
     };
 
-    fetch("http://localhost:5000/artwork", {
+    fetch(`${import.meta.env.VITE_API_URL}/artwork`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newArtwork),
